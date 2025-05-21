@@ -1,8 +1,8 @@
 version: '4.0'
 
 actions:
-  generate_dataset:
-    run: ehrql:v1 generate-dataset analysis/dataset_definition.py --output output/dataset.csv.gz
+  extract_cases:
+    run: ehrql:v1 generate-dataset analysis/dataset_definition_cases.py --output output/dataset_cases.csv.gz
     outputs:
       highly_sensitive:
-        dataset: output/dataset.csv.gz
+        dataset: output/dataset_cases.csv.gz
