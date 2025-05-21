@@ -6,3 +6,9 @@ actions:
     outputs:
       highly_sensitive:
         dataset: output/dataset_cases.csv.gz
+
+  extract_potential_controls:
+    run: ehrql:v1 generate-dataset analysis/dataset_definition_potential_controls.py --output output/dataset_potential_controls.csv.gz
+    outputs:
+      highly_sensitive:
+        dataset: output/dataset_potential_controls.csv.gz
