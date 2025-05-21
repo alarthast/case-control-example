@@ -21,3 +21,10 @@ actions:
         matching_report: output/matching_report.txt
       highly_sensitive:
         matched_matches: output/matched_matches.csv.gz
+
+  extract_controls:
+    run: ehrql:v1 generate-dataset analysis/dataset_definition_controls.py --output output/dataset_controls.csv.gz
+    needs: [matching]
+    outputs:
+      highly_sensitive:
+        dataset: output/dataset_controls.csv.gz
