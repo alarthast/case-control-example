@@ -22,7 +22,7 @@ actions:
         dataset: output/dataset_potential_controls.csv
 
   matching:
-    run: python:v2 python analysis/match.py
+    run: python:latest python analysis/match.py
     needs: [extract_cases, extract_potential_controls]
     outputs:
       moderately_sensitive:
