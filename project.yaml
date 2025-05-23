@@ -1,8 +1,42 @@
 version: '4.0'
 
 actions:
-  generate_dataset:
-    run: ehrql:v1 generate-dataset analysis/dataset_definition.py --output output/dataset.csv.gz
+  extract_cases:
+    run: >
+      ehrql:v1 generate-dataset
+      analysis/dataset_definition_cases.py
+      --output output/dataset_cases.csv
+      --dummy-tables example-data
     outputs:
       highly_sensitive:
-        dataset: output/dataset.csv.gz
+        dataset: output/dataset_cases.csv
+
+  extract_potential_controls:
+    run: >
+      ehrql:v1 generate-dataset
+      analysis/dataset_definition_potential_controls.py
+      --output output/dataset_potential_controls.csv
+      --dummy-tables example-data
+    outputs:
+      highly_sensitive:
+        dataset: output/dataset_potential_controls.csv
+
+  matching:
+    run: python:latest python analysis/match.py
+    needs: [extract_cases, extract_potential_controls]
+    outputs:
+      moderately_sensitive:
+        matching_report: output/matching_report.txt
+      highly_sensitive:
+        matched_matches: output/matched_matches.csv
+
+  extract_controls:
+    run: >
+      ehrql:v1 generate-dataset
+      analysis/dataset_definition_controls.py
+      --output output/dataset_controls.csv
+      --dummy-tables example-data
+    needs: [matching]
+    outputs:
+      highly_sensitive:
+        dataset: output/dataset_controls.csv
