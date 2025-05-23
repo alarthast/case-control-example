@@ -2,13 +2,21 @@ version: '4.0'
 
 actions:
   extract_cases:
-    run: ehrql:v1 generate-dataset analysis/dataset_definition_cases.py --output output/dataset_cases.csv.gz
+    run: >
+      ehrql:v1 generate-dataset
+      analysis/dataset_definition_cases.py
+      --output output/dataset_cases.csv.gz
+      --dummy-tables example-data
     outputs:
       highly_sensitive:
         dataset: output/dataset_cases.csv.gz
 
   extract_potential_controls:
-    run: ehrql:v1 generate-dataset analysis/dataset_definition_potential_controls.py --output output/dataset_potential_controls.csv.gz
+    run: >
+      ehrql:v1 generate-dataset
+      analysis/dataset_definition_potential_controls.py
+      --output output/dataset_potential_controls.csv.gz
+      --dummy-tables example-data
     outputs:
       highly_sensitive:
         dataset: output/dataset_potential_controls.csv.gz
@@ -23,7 +31,11 @@ actions:
         matched_matches: output/matched_matches.csv.gz
 
   extract_controls:
-    run: ehrql:v1 generate-dataset analysis/dataset_definition_controls.py --output output/dataset_controls.csv.gz
+    run: >
+      ehrql:v1 generate-dataset
+      analysis/dataset_definition_controls.py
+      --output output/dataset_controls.csv.gz
+      --dummy-tables example-data
     needs: [matching]
     outputs:
       highly_sensitive:
